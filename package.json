@@ -1,0 +1,20 @@
+{
+  "name": "cra-fullstack",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "concurrently \"cd ./server && yarn\" \"cd ./client && yarn\"",
+    "install:client": "cd client && yarn", 
+    "install:server": "cd server && yarn",     
+    "client": "cd client && yarn start",
+    "server": "cd server && yarn dev",
+    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^4.1.0"
+  }
+}

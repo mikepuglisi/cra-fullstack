@@ -1,0 +1,27 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js",
+    "seed": "sequelize db:seed:all",
+    "seq": "sequelize",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-server-express": "^2.2.2",
+    "body-parser": "^1.18.3",
+    "dataloader": "^1.4.0",
+    "dotenv": "^6.1.0",
+    "express": "^4.16.4",
+    "graphql": "^14.0.2",
+    "helmet": "^3.15.0",
+    "sequelize": "^4.41.2",
+    "sequelize-cli": "^5.3.0",
+    "sqlite3": "^4.0.4"
+  }
+}
