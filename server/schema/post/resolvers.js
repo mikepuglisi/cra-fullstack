@@ -1,4 +1,4 @@
-const {post: postModel} = require('../../db/models')
+const {Post} = require('../../db/models')
 
 module.exports = {
     Post: {
@@ -6,8 +6,8 @@ module.exports = {
         tags: async({id}, _, {dataLoaders: {postTagLoader}}) => await postTagLoader.load(id)
     },
     Query: {
-        getPosts: async(_, __, {dataLoaders: {postLoader}}) => {
-            const posts = await postModel.findAll({
+        posts: async(_, __, {dataLoaders: {postLoader}}) => {
+            const posts = await Post.findAll({
                 order: [
                     ['createdAt', 'desc']
                 ]

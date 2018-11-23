@@ -1,13 +1,14 @@
 'use strict'
 module.exports = (sequelize, DataTypes) => {
-    const tag = sequelize.define('tag', {
+    const Tag = sequelize.define('tag', {
         name: DataTypes.TEXT,
         key: DataTypes.TEXT
     }, {})
 
-    tag.associate = ({post}) => {
-      tag.belongsToMany(post, { through: "post_tag" })
+    Tag.associate = ({Post, PostTag}) => {
+      Tag.belongsToMany(Post, { through: "postTags" })
+      Tag.hasMany(PostTag);
     }
 
-    return tag
+    return Tag
 }

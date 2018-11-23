@@ -5,5 +5,5 @@ type Comment {
 }
 
 extend type Query {
-    getComments: [Comment]!
+    comments: [Comment]!
 }

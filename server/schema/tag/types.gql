@@ -6,5 +6,5 @@ type Tag {
 }
 
 extend type Query {
-    getTags: [Tag]!
+    tags: [Tag]!
 }

@@ -1,14 +1,20 @@
 const DataLoader = require('dataloader')
-const {tag} = require('../db/models')
+const { Tag, Post, PostTag } = require('../db/models')
 
 module.exports = () => ({
-    postTagLoader: new DataLoader(async postIds =>
-        await Promise.all(postIds.map(async postId => await tag.findAll({where: {postId}})))
-    )
+    postTagLoader: new DataLoader(async postIds => {
+      return await Tag.findAll({
+        attributes: ["name", "key"],
+        raw: true,
+        include: [
+          {
+            model: PostTag,
+            required: true,
+            where: {postId: postIds},
+            attributes: ["postId"]
+          }
+        ]
+      })
+      .then(rows => postIds.map(postId => rows.filter(x => x["postTags.postId"] === postId)))
+    })
 })
-
-/*
-    postCommentLoader: new DataLoader(async postIds => await comment.findAll({ where: {postId: postIds}})
-      .then(rows => postIds.map(postId => rows.filter(x => x.postId === postId)))
-    )
-    */

@@ -1,12 +1,12 @@
 'use strict'
 module.exports = (sequelize, DataTypes) => {
-    const comment = sequelize.define('comment', {
+    const Comment = sequelize.define('comment', {
         content: DataTypes.TEXT
     }, {})
 
-    comment.associate = ({post}) => {
-        comment.belongsTo(post)
+    Comment.associate = ({Post}) => {
+      Comment.belongsTo(Post)
     }
 
-    return comment
+    return Comment
 }

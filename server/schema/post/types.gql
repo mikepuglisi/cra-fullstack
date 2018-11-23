@@ -7,5 +7,5 @@ type Post {
 }
 
 extend type Query {
-    getPosts: [Post]!
+    posts: [Post]!
 }

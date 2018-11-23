@@ -1,12 +1,12 @@
-const {tag: tagModel} = require('../../db/models')
+const {Tag} = require('../../db/models')
 
 module.exports = {
     Tag: {
         posts: async({id}, _, {dataLoaders: {postTagLoader}}) => await postTagLoader.load(id)
     },
     Query: {
-        getTags: async(_, __, {dataLoaders: {postTagLoader}}) => {
-            const tags = await tagModel.findAll({
+        tags: async(_, __, {dataLoaders: {postTagLoader}}) => {
+            const tags = await Tag.findAll({
                 order: [
                     ['createdAt', 'desc']
                 ]

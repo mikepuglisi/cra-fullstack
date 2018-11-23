@@ -11,8 +11,8 @@ const sequelize = new Sequelize(config.database, config.username, config.passwor
 glob.sync(path.join(__dirname, './**/!(index|_*).js'))
     .forEach(file => {
         const model = sequelize.import(file)
-
-        db[model.name] = model
+console.log(model.name.charAt(0).toUpperCase() + model.name.slice(1))
+        db[model.name.charAt(0).toUpperCase() + model.name.slice(1)] = model
     })
 
 Object.keys(db).forEach(modelName => {
