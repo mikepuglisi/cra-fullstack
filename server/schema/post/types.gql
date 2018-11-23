@@ -3,6 +3,7 @@ type Post {
     title: String!
     content: String!
     comments: [Comment]!
+    tags: [Tag]!
 }
 
 extend type Query {

@@ -5,8 +5,9 @@ module.exports = (sequelize, DataTypes) => {
         content: DataTypes.TEXT
     }, {})
 
-    post.associate = ({comment}) => {
+    post.associate = ({comment, tag}) => {
         post.hasMany(comment)
+        post.belongsToMany(tag, { through: "post_tag" })
     }
 
     return post

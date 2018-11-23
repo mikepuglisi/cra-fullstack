@@ -1,0 +1,10 @@
+type Tag {
+    id: Int!
+    name: String
+    key: String
+    posts: [Post]!
+}
+
+extend type Query {
+    getTags: [Tag]!
+}

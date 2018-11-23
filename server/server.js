@@ -27,7 +27,10 @@
                 }
             }
         }))
-
+        app.get('/api/hello', (req, res) => {
+          res.setHeader('Content-Type', 'application/json');
+          res.send({ express: `Hello from express server api!` });
+        });
         const api = new ApolloServer({
             typeDefs,
             resolvers,
