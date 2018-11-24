@@ -1,4 +1,7 @@
 import React, { Component, lazy, Suspense } from 'react';
+import { Query } from 'react-apollo'
+import  { gql } from 'apollo-boost'
+
 import { Bar, Line } from 'react-chartjs-2';
 import {
   Badge,
@@ -24,6 +27,13 @@ import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
 import { getStyle, hexToRgba } from '@coreui/coreui/dist/js/coreui-utilities'
 
 // const Widget03 = lazy(() => import('../../views/Widgets/Widget03'));
+const SCHEMA_QUERY = gql`{
+  __schema {
+    types {
+      name
+    }
+  }
+}`
 
 const brandPrimary = getStyle('--primary')
 const brandSuccess = getStyle('--success')
@@ -503,7 +513,32 @@ class Dashboard extends Component {
       <div className="animated fadeIn">
         <Row>
           <Col>
-          <h1>{this.state.response}</h1>
+          <h1 className="text-center">{this.state.response}</h1>
+          <Query query={SCHEMA_QUERY}>
+        {({ data, loading, error, refetch }) => {
+          if (loading) {
+            return (
+              <div className="flex w-100 h-100 items-center justify-center pt7">
+                <div>Loading ...</div>
+              </div>
+            )
+          }
+
+          if (error) {
+            return (
+              <div className="flex w-100 h-100 items-center justify-center pt7">
+                <div>An unexpected error getting graphql data.</div>
+              </div>
+            )
+          }
+
+          return (
+            <>
+              <h1 className="text-center">GraphQL Server reports {data.__schema.types.length} data types!</h1>
+            </>
+          )
+        }}
+      </Query>          
           </Col>
         </Row>
         <Row>
