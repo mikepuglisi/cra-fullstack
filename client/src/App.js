@@ -1,92 +1,51 @@
 import React, { Component } from 'react';
-import { ApolloProvider } from 'react-apollo';
-import ApolloClient from 'apollo-boost';
+import { HashRouter, Route, Switch } from 'react-router-dom';
+// import { renderRoutes } from 'react-router-config';
+import Loadable from 'react-loadable';
+import './App.scss';
 
-import { Query } from 'react-apollo'
-import  { gql } from 'apollo-boost'
+const loading = () => <div className="animated fadeIn pt-3 text-center">Loading...</div>;
 
-import logo from './logo.svg';
+// Containers
+const DefaultLayout = Loadable({
+  loader: () => import('./containers/DefaultLayout'),
+  loading
+});
 
-import './App.css';
+// // Pages
+// const Login = Loadable({
+//   loader: () => import('./views/Pages/Login'),
+//   loading
+// });
 
-const client = new ApolloClient({ uri: '/graphql' })
+// const Register = Loadable({
+//   loader: () => import('./views/Pages/Register'),
+//   loading
+// });
 
-const SCHEMA_QUERY = gql`{
-  __schema {
-    types {
-      name
-    }
-  }
-}`
+// const Page404 = Loadable({
+//   loader: () => import('./views/Pages/Page404'),
+//   loading
+// });
+
+// const Page500 = Loadable({
+//   loader: () => import('./views/Pages/Page500'),
+//   loading
+// });
 
 class App extends Component {
-  state = {
-    response: '',
-    post: '',
-    responseToPost: '',
-  };
-
-  componentDidMount() {
-    this.callApi()
-      .then(res => this.setState({ response: res.express }))
-      .catch(err => console.log(err));
-  }
-
-  callApi = async () => {
-    const response = await fetch('/api/hello');
-    const body = await response.json();
-    if (response.status !== 200) throw Error(body.message);
-
-    return body;
-  };
 
   render() {
     return (
-      <ApolloProvider client={client}>
-      {console.log('client', client)}
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1>{this.state.response}</h1>
-          <Query query={SCHEMA_QUERY}>
-        {({ data, loading, error, refetch }) => {
-          if (loading) {
-            return (
-              <div className="flex w-100 h-100 items-center justify-center pt7">
-                <div>Loading ...</div>
-              </div>
-            )
-          }
-
-          if (error) {
-            return (
-              <div className="flex w-100 h-100 items-center justify-center pt7">
-                <div>An unexpected error getting graphql data.</div>
-              </div>
-            )
-          }
-
-          return (
-            <>
-              <h1>GraphQL Server reports {data.__schema.types.length} data types!</h1>
-            </>
-          )
-        }}
-      </Query>
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-      </ApolloProvider>
+      <HashRouter>
+          <Switch>
+            {/* <Route exact path="/login" name="Login Page" component={Login} />
+            <Route exact path="/register" name="Register Page" component={Register} />
+            <Route exact path="/404" name="Page 404" component={Page404} />
+            <Route exact path="/500" name="Page 500" component={Page500} /> */}
+            <Route path="/" name="Home" component={DefaultLayout} />
+          </Switch>
+      </HashRouter>
     );
   }
 }
